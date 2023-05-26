@@ -1,11 +1,5 @@
-resource "random_string" "rg" {
-  lenth = 8
-  upper = false
-  special = false
-}
-
 resource "azurerm_resource_group" "rg" {
-  name = "application-gateway-${random_string.rg.result}"
+  name = "rg"
   location = "eastus"
 }
 
@@ -113,14 +107,6 @@ resource "azurerm_network_interface_application_gateway_backend_address_pool_ass
   backend_address_pool_id = one(azurerm_application_gateway.main.backend_address_pool).id
 }
 
-resource "random_password" "password" {
-  length  = 16
-  special = true
-  lower   = true
-  upper   = true
-  numeric = true
-}
-
 resource "azurerm_windows_virtual_machine" "vm" {
   count = 2
   name = "myVM${count.index+1}"
@@ -128,7 +114,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
   location = azurerm_resource_group.rg.location
   size = Standard_DS1_v2
   admin_username = "adminuser"
-  admin_password = random_password.password.result
+  admin_password = "Sa0Fdtgj@1admin"
   
   network_interface_ids = [
     azurerm_network_interface.nic[count.index].id,
