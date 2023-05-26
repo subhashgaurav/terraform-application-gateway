@@ -131,7 +131,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
   admin_password = random_password.password.result
   
   network_interface_ids = [
-    azurerm_network_interface.nic.{count.index}.id,
+    azurerm_network_interface.nic[count.index].id,
     ]
   
   os_disk {
